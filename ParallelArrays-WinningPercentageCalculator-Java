@@ -1,0 +1,215 @@
+package parallelarrays;
+
+/**
+ * Program uses parallel arrays to output different data. 
+ * The user is provided with options to display the data, or display the new data.
+ * The program asks the user for the team name, # of win, # of losses.
+ * The user can choose to have the win percentages outputted or the original data.
+ * Program is in console format.
+ */
+
+    /**
+     * Name: Harmandeep Arneja
+     * Date: 1/23/2021
+     * Course Code: ICS 3U1
+     * Program: Parallel Arrays
+     */
+
+// Imports Scanner class to initiate user input
+import java.util.Scanner;
+
+public class ParallelArrays {
+    
+    // Subroutine that will be used to do the rounding for the winning percentage
+    public static double Rounding (double Value1)
+    {
+        Value1 = Value1 * 100; // Multiply by 100
+        Value1 = Math.round(Value1); // Round
+        Value1 = Value1 / 100; // Divide by 100
+        
+        return Value1; // Return statement
+    }
+    
+    // Subroutine to output the menu to the user
+    public static void Menu ()
+    {
+        System.out.println("---------------------------------------------------------------"); // Adds a dash line
+        System.out.println(""); // Adds a space
+        System.out.println("Please choose an option from the menu below:");
+        System.out.println("1. Program outputs the original data.");
+        System.out.println("2. Program outputs the winning percentage of the team(s).");
+        System.out.println("3. Exit.");
+    }
+    
+    public static void main(String[] args) {
+       
+        // Helps us store information inputted from the keyboard.
+        Scanner keyboard = new Scanner(System.in);
+        
+        // Variables needed in our progran
+        String UserInput;
+        int Entries = 0;
+        int UserChoice = 0;
+        boolean Invalid = true;
+        
+        // While loop which will conduct the code underneath everytime except for when Invalid is equal to false.
+        while (Invalid)
+        {
+            // Outputting the heading of the program
+            System.out.println("---Win Percentage Calculator---");
+            System.out.println("---------------------------------------------------------------"); // Adds a dash line
+            
+            System.out.print("To get started, please enter the number of teams: "); // Asking the user for input
+            UserInput = keyboard.nextLine(); // Storing the value
+            
+            System.out.println(""); // Adds a space
+            
+            // Try catch statement that will detect any invalid data
+            try
+            {
+                Entries = Integer.parseInt(UserInput); // Seeing if the value can be stored as integer
+                Invalid = false; // Sets the boolean variable value to false and stops the while loop
+            }
+            
+            // Catch part of try catch statement
+            catch (NumberFormatException e)
+            {
+                System.out.println("Sorry, that wasn't valid input. Please try again!"); // Telling the user to try again
+                System.out.println(""); // Adds a space
+            }
+        } 
+        
+        // Creating parallel arrays
+        String TeamNames [ ] = new String [Entries];
+        int WinsAmount [ ] = new int [Entries];
+        int LossesAmount [ ] = new int [Entries];
+        double WinningPercentage [ ] = new double [Entries];
+        
+        // Telling the user what to do for the next stage of the program
+        System.out.println("---Please Enter The Required Data---");
+        
+        // For loop which will ask and store the user for the team name, wins, and losses
+        for (int i = 0; i < Entries; i = i + 1)
+        {
+            System.out.println(""); // Adds a space
+            System.out.print("Please enter the team name for team " + (i + 1) + ": "); // Asking the user for the team name
+            TeamNames[i] = keyboard.nextLine(); // Storing that value
+            
+            boolean Invalid2 = true; // Creating a boolean variable
+            
+            // Creating a while loop which will conduct the code underneath everytime the boolean variable is true
+            while (Invalid2)
+            {
+                System.out.print("Please enter the amount of wins for " + TeamNames[i] + ": "); // Asking the user for amount of wins
+                UserInput = keyboard.nextLine(); // Storing that value
+                
+                // Try catch statement which will detect any invalid code
+                try
+                {
+                    WinsAmount[i] = Integer.parseInt(UserInput); // Seeing if the value can be stored as integer
+                    Invalid2 = false; // Setting the boolean variable value to false to end the while loop
+                }
+                
+                // Catch part of try catch statement
+                catch (NumberFormatException e)
+                {
+                    System.out.println(""); // Adds a space
+                    System.out.println("Sorry, that wasn't valid input. Please try again!"); // Telling the user to try again
+                }
+            }
+            
+            boolean Invalid3 = true; // Creating a boolean variable
+            
+            // Creating a while loop which will conduct the code underneath everytime the boolean variable is set to true
+            while (Invalid3)
+            {
+                System.out.print("Please enter the amount of losses for " + TeamNames[i] + ": "); // Asking the user to enter the losses
+                UserInput = keyboard.nextLine(); // Storing the value
+                
+                // Try catch statement which will detect any invalid code
+                try
+                {
+                    LossesAmount[i] = Integer.parseInt(UserInput); // Seeing if the value can be stored as integer
+                    Invalid3 = false; // Setting the boolean variable value to false to end the while loop
+                }
+                
+                // Catch part of try catch statement
+                catch (NumberFormatException e)
+                {
+                    System.out.println(""); // Adds a space
+                    System.out.println("Sorry, that wasn't valid input. Please try again!"); // Telling the user to try again
+                }
+            }
+        }
+        
+        // For loop which will calculate the winning percentages of each team
+        for (int i = 0; i < Entries; i = i + 1)
+        {
+            WinningPercentage[i] = ((double)WinsAmount[i] / (double)(WinsAmount[i] + LossesAmount[i])) * 100; // Calculation
+            WinningPercentage[i] = Rounding(WinningPercentage[i]); // Rounding it
+        }
+        
+        // While loop will conduct everything underneath everytime user choice is not equal to 3
+        while (UserChoice != 3)
+        {
+            boolean Invalid4 = true; // Creating a boolean variables
+             
+            // Creating a while loop which will conduct the code underneath
+            while (Invalid4)
+            {
+                Menu(); // Subroutine Call
+                
+                System.out.println(""); // Adds a space
+                System.out.print("Please enter your chosen option: "); // Asking the user for his/her chosen option
+                UserInput = keyboard.nextLine(); // Storing the value
+                
+                System.out.println(""); // Adds a space
+                
+                // Try catch statement which will detect any invalid code
+                try
+                {
+                    UserChoice = Integer.parseInt(UserInput); // Seeing if the value can be stored as integer
+                    Invalid4 = false; // Setting the boolean variable value to false to end the while loop
+                }
+                
+                // Catch part of try catch statement
+                catch (NumberFormatException e)
+                {
+                    System.out.println("Sorry, that wasn't valid input. Please try again!"); // Telling the user to try again
+                }
+            }
+            
+            // If statement for when the users choice is equal to 1
+            if (UserChoice == 1)
+            {
+                // For loop which will output the original data entered by the user using the parallel arrays
+                for (int i = 0; i < Entries; i = i + 1)
+                {
+                    System.out.println("The " + TeamNames[i] + " have " + WinsAmount[i] + " total Wins and " + LossesAmount[i] + " total Losses.");
+                }
+                
+            }
+            
+            // If statement for when the users choice is equal to 2
+            if (UserChoice == 2)
+            {
+                // For loop which will output the winning percentages of each team using parallel arrays
+                for (int i = 0; i < Entries; i = i + 1)
+                {
+                    System.out.println("The " + TeamNames[i] + " have a winning percentage of " + WinningPercentage[i] + "%.");
+                }
+            }
+            
+            
+            // If statement for when the users choice is equal to 3. He/she wishes to exit the program
+            if (UserChoice == 3)
+            {
+                System.out.println("Thanks for trying out the program. Take it easy!"); // Farewell message
+                System.out.println("---------------------------------------------------------------"); // Adds a dash line
+                
+                System.exit(0); // Program exits
+            }
+            
+        }
+    } 
+}
